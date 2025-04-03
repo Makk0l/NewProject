@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class CommandProcessor {
     private Map<String, Command> map = new HashMap<>();
+    private Scanner scanner;
 
 
     public CommandProcessor() {
@@ -16,12 +17,12 @@ public class CommandProcessor {
         map.put("pause", new PauseCommand());
         map.put("start", new StartCommand());
         map.put("stop", new StopCommand());
+        scanner = new Scanner(System.in);
     }
 
     public void branch() {
         while (true) {
-            String result = scanner();
-            Command command = map.get(result);
+            Command command = map.get(scanner.nextLine());
             if (command != null){
                 command.execute();
             }
@@ -29,10 +30,6 @@ public class CommandProcessor {
                 System.out.println("Неверная команда");
             }
         }
-    }
-
-    private String scanner() {
-        return new Scanner(System.in).nextLine();
     }
 
 }
